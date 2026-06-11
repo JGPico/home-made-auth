@@ -1,3 +1,5 @@
+"use client"
+
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod"
@@ -11,7 +13,25 @@ const signUpSchema = z.object({
 type SignUpForm = z.infer<typeof signUpSchema>
 
 export function SignUpTab() {
-    useForm<SignUpForm>({
-        resolver: zodResolver(signUpSchema)
+    const form = useForm<SignUpForm>({
+        resolver: zodResolver(signUpSchema),
+        defaultValues: {
+            name: "",
+            email: "",
+            password: "",
+        },
     })
+
+    function handleSignUp(data: SignUpForm) {
+        form.reset()
+        alert("form submit action complete")
+    }
+
+    return (
+        <div className="container px-4 mx-auto my-6">
+            <form onSubmit={form.handleSubmit(handleSignUp)}>
+
+            </form>
+        </div>
+    )
 }
