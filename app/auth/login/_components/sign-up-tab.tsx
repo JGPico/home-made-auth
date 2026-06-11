@@ -1,8 +1,13 @@
 "use client"
 
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod"
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import { PasswordInput } from "@/components/ui/password-input"
+import { Button } from "@/components/ui/button"
+import { LoadingSwap } from "@/components/ui/loading-swap"
 
 const signUpSchema = z.object({
     name: z.string().min(1),
@@ -22,6 +27,8 @@ export function SignUpTab() {
         },
     })
 
+    const { isSubmitting } = form.formState
+
     function handleSignUp(data: SignUpForm) {
         form.reset()
         alert("form submit action complete")
@@ -30,7 +37,59 @@ export function SignUpTab() {
     return (
         <div className="container px-4 mx-auto my-6">
             <form onSubmit={form.handleSubmit(handleSignUp)}>
+                <FieldGroup>
+                    <Controller
+                        control={form.control}
+                        name="name"
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                                <Input
+                                    {...field}
+                                    id={field.name}
+                                    aria-invalid={fieldState.invalid} />
 
+                                {fieldState.invalid && (<FieldError errors={[fieldState.error]}></FieldError>)}
+                            </Field>
+                        )} />
+
+                    <Controller
+                        control={form.control}
+                        name="email"
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                                <Input
+                                    {...field}
+                                    id={field.name}
+                                    aria-invalid={fieldState.invalid} />
+
+                                {fieldState.invalid && (<FieldError errors={[fieldState.error]}></FieldError>)}
+                            </Field>
+                        )} />
+
+                    <Controller
+                        control={form.control}
+                        name="password"
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                                <PasswordInput
+                                    {...field}
+                                    id={field.name}
+                                    aria-invalid={fieldState.invalid} />
+
+                                {fieldState.invalid && (<FieldError errors={[fieldState.error]}></FieldError>)}
+                            </Field>
+                        )} />
+
+                    <Button type="submit" disabled={isSubmitting}
+                        className="w-full">
+                        <LoadingSwap isLoading={isSubmitting}>
+                            Sign Up
+                        </LoadingSwap>
+                    </Button>
+                </FieldGroup>
             </form>
         </div>
     )
