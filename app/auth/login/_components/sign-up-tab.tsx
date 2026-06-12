@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { Button } from "@/components/ui/button"
 import { LoadingSwap } from "@/components/ui/loading-swap"
+import { authClient } from "@/lib/auth-client"
+import { toast } from "sonner"
 
 const signUpSchema = z.object({
     name: z.string().min(1),
@@ -29,9 +31,14 @@ export function SignUpTab() {
 
     const { isSubmitting } = form.formState
 
-    function handleSignUp(data: SignUpForm) {
+    async function handleSignUp(data: SignUpForm) {
         form.reset()
-        alert("form submit action complete")
+        await authClient.signUp.email({ ...data, callbackURL: "/" }, {
+            onError: (error) => {
+                toast.error(error.error.message || "Failed to sign up")
+            }
+        })
+
     }
 
     return (
