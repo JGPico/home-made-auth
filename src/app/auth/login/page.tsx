@@ -16,7 +16,7 @@ export default function LoginPage() {
                         <CardTitle className="text-2xl font-bold">Sign In</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <SignUpTab></SignUpTab>
+                        <SignInTab></SignInTab>
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -27,7 +27,7 @@ export default function LoginPage() {
                         <CardTitle className="text-2xl font-bold">Sign Up</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <SignInTab></SignInTab>
+                        <SignUpTab></SignUpTab>
                     </CardContent>
                 </Card>
             </TabsContent>
