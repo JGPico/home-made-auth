@@ -7,8 +7,8 @@ export default function LoginPage() {
     return (
         <Tabs defaultValue={"signin"} className="max-auto w-full my-6 px-4">
             <TabsList>
-                <TabsTrigger value="signin">Sign In</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                <TabsTrigger value="signin">Sign In with bananas</TabsTrigger>
+                <TabsTrigger value="signup">Sign Up in conjuction with bananas</TabsTrigger>
             </TabsList>
             <TabsContent value="signin">
                 <Card>

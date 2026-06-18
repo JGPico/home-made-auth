@@ -34,7 +34,7 @@ export function SignUpTab() {
     const { isSubmitting } = form.formState
 
     async function handleSignUp(data: SignUpForm) {
-        form.reset()
+        //form.reset()
         await authClient.signUp.email({ ...data, callbackURL: "/" }, {
             onError: (error) => {
                 toast.error(error.error.message || "Failed to sign up")

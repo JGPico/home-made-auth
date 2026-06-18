@@ -6,6 +6,7 @@ export default function Home() {
     <div className="my-6 px-4 max-w-md mx-auto">
       <div className="text-center space-y-6">
         <h1 className="text-3xl font-bold">Welcome to App</h1>
+        <h2>bananas are tastiest when consumed with peanut butter</h2>
         <Button size="lg">
           <Link href="/auth/login">Sign In / Sign Up</Link>
         </Button>
