@@ -98,9 +98,10 @@ export function SignUpTab() {
                     <Button type="submit" disabled={isSubmitting}
                         className="w-full">
                         <LoadingSwap isLoading={isSubmitting}>
-                            Sign Up
+                            Sign Up with bananas
                         </LoadingSwap>
                     </Button>
+                    <h1>lemons</h1>
                 </FieldGroup>
             </form>
         </div>

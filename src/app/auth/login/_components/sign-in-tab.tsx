@@ -93,6 +93,7 @@ export function SignInTab() {
                             Sign In but also Bananas
                         </LoadingSwap>
                     </Button>
+                    <h1>Eggs!</h1>
                 </FieldGroup>
             </form>
         </div>
