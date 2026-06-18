@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { LoadingSwap } from "@/components/ui/loading-swap"
 import { authClient } from "@/lib/auth-client"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 const signUpSchema = z.object({
     name: z.string().min(1),
@@ -20,6 +21,7 @@ const signUpSchema = z.object({
 type SignUpForm = z.infer<typeof signUpSchema>
 
 export function SignUpTab() {
+    const router = useRouter()
     const form = useForm<SignUpForm>({
         resolver: zodResolver(signUpSchema),
         defaultValues: {
@@ -32,10 +34,13 @@ export function SignUpTab() {
     const { isSubmitting } = form.formState
 
     async function handleSignUp(data: SignUpForm) {
-        form.reset()
+        //form.reset()
         await authClient.signUp.email({ ...data, callbackURL: "/" }, {
             onError: (error) => {
                 toast.error(error.error.message || "Failed to sign up")
+            },
+            onSuccess: () => {
+                router.push("/")
             }
         })
 
@@ -93,9 +98,10 @@ export function SignUpTab() {
                     <Button type="submit" disabled={isSubmitting}
                         className="w-full">
                         <LoadingSwap isLoading={isSubmitting}>
-                            Sign Up
+                            Sign Up with bananas
                         </LoadingSwap>
                     </Button>
+                    <h1>lemons</h1>
                 </FieldGroup>
             </form>
         </div>
