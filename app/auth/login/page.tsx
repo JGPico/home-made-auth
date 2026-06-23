@@ -36,7 +36,7 @@ export default function LoginPage() {
                     </Card>
                 </TabsContent>
             </Tabs>
-            <Button>
+            <Button className="mx-4">
                 <Link href="/">Home</Link>
             </Button>
         </>

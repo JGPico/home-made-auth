@@ -13,7 +13,6 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 
 const signInSchema = z.object({
-    name: z.string().min(1),
     email: z.email().min(1),
     password: z.string().min(1)
 })
@@ -25,7 +24,6 @@ export function SignInTab() {
     const form = useForm<SignInForm>({
         resolver: zodResolver(signInSchema),
         defaultValues: {
-            name: "",
             email: "",
             password: "",
         },
@@ -35,27 +33,21 @@ export function SignInTab() {
 
     async function handleSignIn(data: SignInForm) {
         //form.reset()
-        alert("Sign In Clicked")
+        await authClient.signIn.email({ ...data, callbackURL: "/" }, {
+            onError: (error) => {
+                console.log(error)
+                toast.error(error.error.message || "Failed to sign up")
+            },
+            onSuccess: () => {
+                router.push("/")
+            }
+        })
     }
 
     return (
         <div className="container px-4 mx-auto my-6">
             <form onSubmit={form.handleSubmit(handleSignIn)}>
                 <FieldGroup>
-                    <Controller
-                        control={form.control}
-                        name="name"
-                        render={({ field, fieldState }) => (
-                            <Field data-invalid={fieldState.invalid}>
-                                <FieldLabel htmlFor={field.name}>Name</FieldLabel>
-                                <Input
-                                    {...field}
-                                    id={field.name}
-                                    aria-invalid={fieldState.invalid} />
-
-                                {fieldState.invalid && (<FieldError errors={[fieldState.error]}></FieldError>)}
-                            </Field>
-                        )} />
 
                     <Controller
                         control={form.control}
@@ -90,10 +82,9 @@ export function SignInTab() {
                     <Button type="submit" disabled={isSubmitting}
                         className="w-full">
                         <LoadingSwap isLoading={isSubmitting}>
-                            Sign In but also Bananas
+                            Sign In
                         </LoadingSwap>
                     </Button>
-                    <h1>Eggs!</h1>
                 </FieldGroup>
             </form>
         </div>

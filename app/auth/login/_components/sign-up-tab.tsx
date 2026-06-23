@@ -37,6 +37,7 @@ export function SignUpTab() {
         //form.reset()
         await authClient.signUp.email({ ...data, callbackURL: "/" }, {
             onError: (error) => {
+                console.log(error)
                 toast.error(error.error.message || "Failed to sign up")
             },
             onSuccess: () => {
@@ -98,10 +99,9 @@ export function SignUpTab() {
                     <Button type="submit" disabled={isSubmitting}
                         className="w-full">
                         <LoadingSwap isLoading={isSubmitting}>
-                            Sign Up with bananas
+                            Sign Up
                         </LoadingSwap>
                     </Button>
-                    <h1>lemons</h1>
                 </FieldGroup>
             </form>
         </div>
